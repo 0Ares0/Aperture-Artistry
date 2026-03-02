@@ -1,0 +1,1734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aperture Artistry | Photography</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:wght@300;400;500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream: #f5efe6;
+      --warm-sand: #e8d5b7;
+      --terracotta: #c47b4a;
+      --deep-brown: #3b2a1a;
+      --mocha: #7a5c3e;
+      --light-mocha: #a67c5b;
+      --off-white: #faf7f2;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--cream);
+      color: var(--deep-brown);
+      overflow-x: hidden;
+    }
+
+    /* ─── NAV ─────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.4rem 4rem;
+      background: rgba(245,239,230,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(196,123,74,0.15);
+      transition: padding 0.3s;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--deep-brown);
+      letter-spacing: 0.02em;
+    }
+
+    .logo span { color: var(--terracotta); font-style: italic; }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2.5rem;
+    }
+
+    nav ul a {
+      text-decoration: none;
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 0.85rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--mocha);
+      transition: color 0.3s;
+    }
+
+    nav ul a:hover { color: var(--terracotta); }
+
+    /* ─── HERO ────────────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 10rem 4rem 4rem 6rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 0.75rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 5vw, 5rem);
+      line-height: 1.1;
+      color: var(--deep-brown);
+      margin-bottom: 2rem;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--terracotta);
+    }
+
+    .hero-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-weight: 300;
+      color: var(--mocha);
+      line-height: 1.7;
+      max-width: 380px;
+      margin-bottom: 3rem;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 1rem 2.5rem;
+      background: var(--terracotta);
+      color: var(--off-white);
+      text-decoration: none;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      transition: background 0.3s, transform 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background: var(--deep-brown);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--terracotta);
+      color: var(--terracotta);
+      margin-left: 1rem;
+    }
+
+    .btn-outline:hover {
+      background: var(--terracotta);
+      color: var(--off-white);
+    }
+
+    .hero-right {
+      overflow: hidden;
+      display: flex;
+      align-items: stretch;
+    }
+
+    .hero-image-grid {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px;
+      padding-top: 70px;
+      align-content: start;
+    }
+
+    .hero-img-cell {
+      overflow: hidden;
+      position: relative;
+      background: var(--deep-brown);
+    }
+
+    .hero-img-cell img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: contain;
+      filter: saturate(0.85);
+      transition: transform 0.6s ease;
+    }
+
+    .hero-img-cell:hover img { transform: scale(1.03); }
+
+    /* placeholder photo tints */
+    .ph { width:100%; aspect-ratio: 4/3; display:flex; align-items:center; justify-content:center; font-family:'Playfair Display',serif; font-style:italic; color:rgba(255,255,255,0.6); font-size:0.9rem; letter-spacing:0.1em; }
+
+    .ph-1 { background: linear-gradient(135deg, #8b6347 0%, #5c3d20 100%); }
+    .ph-2 { background: linear-gradient(135deg, #c4966a 0%, #7a5030 100%); }
+    .ph-3 { background: linear-gradient(135deg, #6b4c32 0%, #3d2410 100%); }
+    .ph-4 { background: linear-gradient(135deg, #a07855 0%, #614030 100%); }
+
+    /* decorative grain overlay */
+    #hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      z-index: 10;
+    }
+
+    /* ─── DIVIDER ─────────────────────────────────────────── */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0 6rem;
+      margin: 1rem 0;
+    }
+    .divider-line { flex: 1; height: 1px; background: var(--warm-sand); }
+    .divider-icon { color: var(--terracotta); font-size: 1.2rem; }
+
+    /* ─── SECTION COMMONS ─────────────────────────────────── */
+    section { padding: 6rem 6rem; }
+
+    .section-label {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      color: var(--deep-brown);
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ─── GALLERY ─────────────────────────────────────────── */
+    #portfolio { background: var(--off-white); }
+
+    .gallery-filters {
+      display: flex;
+      gap: 0.5rem;
+      margin: 2.5rem 0;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: 0.5rem 1.4rem;
+      border: 1px solid var(--warm-sand);
+      background: transparent;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--mocha);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .filter-btn.active,
+    .filter-btn:hover {
+      background: var(--terracotta);
+      border-color: var(--terracotta);
+      color: white;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .gallery-item {
+      position: relative;
+      cursor: pointer;
+      background: var(--deep-brown);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: contain;
+      transition: transform 0.6s ease;
+      filter: saturate(0.85);
+    }
+
+    /* placeholder boxes keep a fallback ratio */
+    .gallery-item .gph {
+      aspect-ratio: 4/3;
+    }
+
+    .gallery-item .overlay {
+      position: absolute;
+      inset: 0;
+      opacity: 1;
+      display: flex;
+      align-items: flex-end;
+      padding: 1.5rem;
+      pointer-events: none;
+    }
+
+    .gallery-item:hover img { transform: scale(1.02); }
+
+    .overlay-text {
+      color: white;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.05em;
+    }
+
+    /* photo placeholders for gallery */
+    .gph { width:100%; height:100%; display:flex; align-items:center; justify-content:center; font-family:'Cormorant Garamond',serif; font-size:1rem; color:rgba(255,255,255,0.4); letter-spacing:0.08em; transition: transform 0.6s ease; }
+
+    /* ─── ABOUT ───────────────────────────────────────────── */
+    #about {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+      background: var(--cream);
+    }
+
+    .about-image {
+      position: relative;
+    }
+
+    .about-img-main {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      display: block;
+    }
+
+    .about-img-placeholder {
+      width: 100%;
+      aspect-ratio: 3/4;
+      background: linear-gradient(160deg, #9b7355 0%, #5a3820 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      color: rgba(255,255,255,0.4);
+      font-size: 1.1rem;
+      letter-spacing: 0.1em;
+    }
+
+    .about-accent {
+      position: absolute;
+      bottom: -1.5rem;
+      right: -1.5rem;
+      width: 60%;
+      aspect-ratio: 1;
+      border: 2px solid var(--terracotta);
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    .about-stat-bar {
+      display: flex;
+      gap: 2rem;
+      margin: 2.5rem 0;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      color: var(--terracotta);
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--mocha);
+    }
+
+    .about-body {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      line-height: 1.9;
+      color: var(--mocha);
+      margin-bottom: 1.5rem;
+    }
+
+    /* ─── PRICING ─────────────────────────────────────────── */
+    #pricing { background: var(--deep-brown); color: var(--cream); }
+    #pricing .section-title { color: var(--warm-sand); }
+    #pricing .section-label { color: var(--terracotta); }
+
+    .pricing-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      color: var(--light-mocha);
+      margin-bottom: 3rem;
+      max-width: 500px;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .price-card {
+      border: 1px solid rgba(232,213,183,0.15);
+      padding: 2.5rem 2rem;
+      position: relative;
+      transition: border-color 0.3s;
+    }
+
+    .price-card:hover { border-color: var(--terracotta); }
+
+    .price-card.featured {
+      border-color: var(--terracotta);
+      background: rgba(196,123,74,0.08);
+    }
+
+    .featured-badge {
+      position: absolute;
+      top: -1px; right: 2rem;
+      background: var(--terracotta);
+      color: white;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.3rem 1rem;
+    }
+
+    .price-category {
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 0.5rem;
+    }
+
+    .price-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--warm-sand);
+      margin-bottom: 1.5rem;
+    }
+
+    .price-amount {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      color: var(--cream);
+      margin-bottom: 0.3rem;
+    }
+
+    .price-amount span {
+      font-size: 1rem;
+      font-family: 'Jost', sans-serif;
+      color: var(--light-mocha);
+    }
+
+    .price-desc {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      color: var(--light-mocha);
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+
+    .price-features {
+      list-style: none;
+      margin-bottom: 2rem;
+    }
+
+    .price-features li {
+      font-size: 0.85rem;
+      color: var(--warm-sand);
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(232,213,183,0.08);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .price-features li::before {
+      content: '◆';
+      color: var(--terracotta);
+      font-size: 0.4rem;
+      flex-shrink: 0;
+    }
+
+    .btn-dark {
+      background: transparent;
+      border: 1px solid var(--terracotta);
+      color: var(--terracotta);
+      padding: 0.8rem 2rem;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-dark:hover { background: var(--terracotta); color: white; }
+
+    /* ─── CONTACT ─────────────────────────────────────────── */
+    #contact {
+      background: var(--off-white);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: start;
+    }
+
+    .contact-info .about-body { margin-bottom: 2rem; }
+
+    .contact-detail {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.2rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      color: var(--mocha);
+    }
+
+    .contact-detail-icon {
+      width: 36px;
+      height: 36px;
+      border: 1px solid var(--warm-sand);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 0.85rem;
+    }
+
+    .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+
+    .form-group label {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--mocha);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      border: 1px solid var(--warm-sand);
+      background: var(--cream);
+      padding: 0.9rem 1rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      color: var(--deep-brown);
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--terracotta); }
+
+    .form-group textarea { min-height: 130px; resize: vertical; }
+
+    /* ─── FOOTER ──────────────────────────────────────────── */
+    footer {
+      background: var(--deep-brown);
+      padding: 3rem 6rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer .logo { color: var(--warm-sand); }
+    footer .logo span { color: var(--terracotta); }
+
+    .footer-copy {
+      font-size: 0.75rem;
+      color: var(--light-mocha);
+      letter-spacing: 0.1em;
+    }
+
+    .social-links { display: flex; gap: 1rem; }
+    .social-links a {
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(232,213,183,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--light-mocha);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: all 0.3s;
+    }
+    .social-links a:hover { border-color: var(--terracotta); color: var(--terracotta); }
+
+    /* ─── ANIMATIONS ──────────────────────────────────────── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: none; }
+
+    /* ─── PRICING TABS ────────────────────────────────────── */
+    .pricing-tabs {
+      display: flex;
+      gap: 0;
+      margin: 2rem 0 2.5rem;
+      border-bottom: 1px solid rgba(232,213,183,0.2);
+    }
+
+    .ptab {
+      padding: 0.9rem 2.5rem;
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--light-mocha);
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-bottom: -1px;
+    }
+
+    .ptab.active {
+      color: var(--terracotta);
+      border-bottom-color: var(--terracotta);
+    }
+
+    .ptab:hover { color: var(--warm-sand); }
+
+    .pricing-panel { display: none; }
+    .pricing-panel.active { display: block; }
+
+    .price-bestfor {
+      font-size: 0.78rem;
+      color: var(--light-mocha);
+      font-style: italic;
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+
+    .price-bonus {
+      font-size: 0.82rem;
+      color: var(--terracotta);
+      margin-bottom: 1rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+    }
+
+    /* ─── ADD-ONS ─────────────────────────────────────────── */
+    .addons-box {
+      margin-top: 3rem;
+      border: 1px solid rgba(232,213,183,0.15);
+      padding: 2rem 2.5rem;
+    }
+
+    .addons-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--warm-sand);
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.05em;
+    }
+
+    .addons-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0 4rem;
+    }
+
+    .addon-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.65rem 0;
+      border-bottom: 1px solid rgba(232,213,183,0.08);
+      font-size: 0.82rem;
+      color: var(--warm-sand);
+      gap: 1rem;
+    }
+
+    .addon-item span:last-child {
+      color: var(--terracotta);
+      white-space: nowrap;
+      font-weight: 500;
+    }
+
+    @media (max-width: 900px) {
+      .addons-grid { grid-template-columns: 1fr; }
+      .pricing-tabs { overflow-x: auto; }
+    }
+    @media (max-width: 900px) {
+      nav { padding: 1.2rem 2rem; }
+      nav ul { gap: 1.2rem; }
+      section { padding: 4rem 2rem; }
+      #hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-left { padding: 8rem 2rem 3rem; }
+      .hero-right { height: 50vw; position: relative; }
+      #about, #contact { grid-template-columns: 1fr; gap: 3rem; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; }
+      .gallery-item.wide { grid-column: span 1; }
+      footer { flex-direction: column; gap: 1.5rem; text-align: center; padding: 2.5rem; }
+      .divider { padding: 0 2rem; }
+      .about-accent { display: none; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo">Aperture <span>Artistry</span></div>
+    <ul>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-left">
+      <p class="hero-eyebrow">Portrait · Automotive · Events</p>
+      <h1 class="hero-title">Every Frame<br/>Tells a <em>Story</em></h1>
+      <p class="hero-sub">Professional photography that captures the soul of every subject — from the roar of an engine to the quiet depth of a portrait.</p>
+      <div>
+        <a href="#portfolio" class="btn">View Portfolio</a>
+        <a href="#contact" class="btn btn-outline">Book a Session</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-image-grid">
+        <div class="hero-img-cell"><img src="images/_1018170.jpg"></div>
+        <div class="hero-img-cell"><img src="images/_1052996.jpg"></div>
+        <div class="hero-img-cell"><img src="images/_1018105.jpg"></div>
+        <div class="hero-img-cell"><img src="images/P1024929.jpg"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"><div class="divider-line"></div><div class="divider-icon">◆</div><div class="divider-line"></div></div>
+
+  <!-- PORTFOLIO -->
+  <section id="portfolio">
+    <p class="section-label fade-in">Selected Work</p>
+    <h2 class="section-title fade-in">The Portfolio</h2>
+    <div class="gallery-filters fade-in">
+      <button class="filter-btn active" onclick="filterGallery('all', this)">All</button>
+      <button class="filter-btn" onclick="filterGallery('portrait', this)">Portrait</button>
+      <button class="filter-btn" onclick="filterGallery('automotive', this)">Automotive</button>
+      <button class="filter-btn" onclick="filterGallery('events', this)">Events</button>
+    </div>
+    <div class="gallery-grid fade-in">
+      <!-- Replace these placeholder divs with <img> tags pointing to your actual photos -->
+      <div class="gallery-item" data-cat="portrait">
+        <img src="images/80-P1023615.jpg">
+        <div class="overlay"><div class="overlay-text">Portrait</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="portrait">
+        <img src="images/61-_1076762.jpg">
+        <div class="overlay"><div class="overlay-text">Head Shot</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="portrait">
+        <img src="images/43-_1077425.jpg">
+        <div class="overlay"><div class="overlay-text">Portrait</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="portrait">
+        <img src="images/60-_1077296.jpg">
+        <div class="overlay"><div class="overlay-text">Portrait</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="portrait">
+        <img src="images/74-_1075912.jpg">
+        <div class="overlay"><div class="overlay-text">Portrait</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="portrait">
+        <img src="images/1-_1075941.jpg">
+        <div class="overlay"><div class="overlay-text">Portrait</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="portrait">
+        <img src="images/63-WTCC9985.jpg">
+        <div class="overlay"><div class="overlay-text">Portrait</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="portrait">
+        <img src="images/46-_1077391.jpg">
+        <div class="overlay"><div class="overlay-text">Portrait</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="portrait">
+        <img src="images/25-_1017000.jpg">
+        <div class="overlay"><div class="overlay-text">Portrait</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="portrait">
+        <img src="images/22-_1017357.jpg">
+        <div class="overlay"><div class="overlay-text">Portrait</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="portrait">
+        <img src="images/27-_1016995.jpg">
+        <div class="overlay"><div class="overlay-text">Portrait</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="portrait">
+        <img src="images/28-_1016994.jpg">
+        <div class="overlay"><div class="overlay-text">Portrait</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="portrait">
+        <img src="images/30-_1016992.jpg">
+        <div class="overlay"><div class="overlay-text">Portrait</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="portrait">
+        <img src="images/31-_1016991.jpg">
+        <div class="overlay"><div class="overlay-text">Portrait</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="portrait">
+        <img src="images/32-_1016988.jpg">
+        <div class="overlay"><div class="overlay-text">Portrait</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="portrait">
+        <img src="images/33-_1016976.jpg">
+        <div class="overlay"><div class="overlay-text">Portrait</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="portrait">
+        <img src="images/1-_1075941.jpg">
+        <div class="overlay"><div class="overlay-text">Portrait</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="portrait">
+        <img src="images/2-_1075921.jpg">
+        <div class="overlay"><div class="overlay-text">Portrait</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="portrait">
+        <img src="images/36-_1016964.jpg">
+        <div class="overlay"><div class="overlay-text">Portrait</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="portrait">
+        <img src="images/35-_1016970.jpg">
+        <div class="overlay"><div class="overlay-text">Portrait</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="portrait">
+        <img src="images/3-_1018252.jpg">
+        <div class="overlay"><div class="overlay-text">Portrait</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="portrait">
+        <img src="images/6-_1018225.jpg">
+        <div class="overlay"><div class="overlay-text">Portrait</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="portrait">
+        <img src="images/7-_1018213.jpg">
+        <div class="overlay"><div class="overlay-text">Portrait</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="portrait">
+        <img src="images/13-_1018164.jpg">
+        <div class="overlay"><div class="overlay-text">Portrait</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="portrait">
+        <img src="images/19-_1018131.jpg">
+        <div class="overlay"><div class="overlay-text">Portrait</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="portrait">
+        <img src="images/71-_1075917.jpg">
+        <div class="overlay"><div class="overlay-text">Portrait</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="portrait">
+        <img src="images/_1076247.jpg">
+        <div class="overlay"><div class="overlay-text">Head Shot</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="portrait">
+        <img src="images/67-_1075937.jpg">
+        <div class="overlay"><div class="overlay-text">Portrait</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="portrait">
+        <img src="images/2-_1077311.jpg">
+        <div class="overlay"><div class="overlay-text">Head Shot</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="portrait">
+        <img src="images/3-_1075790.jpg">
+        <div class="overlay"><div class="overlay-text">Graduation Portrait</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="portrait">
+        <img src="images/2-_1077396.jpg">
+        <div class="overlay"><div class="overlay-text">Portrait</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="portrait">
+        <img src="images/P1304955.jpg">
+        <div class="overlay"><div class="overlay-text">Head Shot</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="portrait">
+        <img src="images/3-_1075914.jpg">
+        <div class="overlay"><div class="overlay-text">Graduation Portrait</div></div>
+      </div>
+
+    
+
+
+
+
+
+      <div class="gallery-item" data-cat="events">
+        <img src="images/53-_1077349.jpg">
+        <div class="overlay"><div class="overlay-text">Marriage Proposal</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="events">
+        <img src="images/48-_1077372.jpg">
+        <div class="overlay"><div class="overlay-text">Marriage Proposal</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="events">
+        <img src="images/1-_1018326.jpg">
+        <div class="overlay"><div class="overlay-text">Event Gathering</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="events">
+        <img src="images/2-_1018320.jpg">
+        <div class="overlay"><div class="overlay-text">Event Gathering</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="events">
+        <img src="images/8-_1018077.jpg">
+        <div class="overlay"><div class="overlay-text">Event Gathering</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="events">
+        <img src="images/4-_1018304.jpg">
+        <div class="overlay"><div class="overlay-text">Event Gathering</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="events">
+        <img src="images/5-_1018294.jpg">
+        <div class="overlay"><div class="overlay-text">Event Gathering</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="events">
+        <img src="images/6-_1018291.jpg">
+        <div class="overlay"><div class="overlay-text">Event Gathering</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="events">
+        <img src="images/7-_1018102.jpg">
+        <div class="overlay"><div class="overlay-text">Event Gathering</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="events">
+        <img src="images/9-_1018058.jpg">
+        <div class="overlay"><div class="overlay-text">Event Gathering</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="events">
+        <img src="images/3-_1018313.jpg">
+        <div class="overlay"><div class="overlay-text">Event Gathering</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="events">
+        <img src="images/10-_1018057.jpg">
+        <div class="overlay"><div class="overlay-text">Event Gathering</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="events">
+        <img src="images/11-_1018020.jpg">
+        <div class="overlay"><div class="overlay-text">Event Gathering</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="events">
+        <img src="images/12-_1018016.jpg">
+        <div class="overlay"><div class="overlay-text">Event Gathering</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="events">
+        <img src="images/14-_1018009.jpg">
+        <div class="overlay"><div class="overlay-text">Event Gathering</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="events">
+        <img src="images/13-_1018010.jpg">
+        <div class="overlay"><div class="overlay-text">Event Gathering</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="events">
+        <img src="images/1-_1017925.jpg">
+        <div class="overlay"><div class="overlay-text">Vara Juice Opening</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="events">
+        <img src="images/16-_1018000.jpg">
+        <div class="overlay"><div class="overlay-text">Event Gathering</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="events">
+        <img src="images/17-_1017994.jpg">
+        <div class="overlay"><div class="overlay-text">Event Gathering</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="events">
+        <img src="images/18-_1017992.jpg">
+        <div class="overlay"><div class="overlay-text">Event Gathering</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="events">
+        <img src="images/15-_1018003.jpg">
+        <div class="overlay"><div class="overlay-text">Event Gathering</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="events">
+        <img src="images/2-_1017922.jpg">
+        <div class="overlay"><div class="overlay-text">Vara Juice Opening</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="events">
+        <img src="images/3-_1017920.jpg">
+        <div class="overlay"><div class="overlay-text">Vara Juice Opening</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="events">
+        <img src="images/4-_1017913.jpg">
+        <div class="overlay"><div class="overlay-text">Vara Juice Opening</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="events">
+        <img src="images/6-_1017877.jpg">
+        <div class="overlay"><div class="overlay-text">Vara Juice Opening</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="events">
+        <img src="images/7-_1017861.jpg">
+        <div class="overlay"><div class="overlay-text">Vara Juice Opening</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="events">
+        <img src="images/8-_1017853.jpg">
+        <div class="overlay"><div class="overlay-text">Vara Juice Opening</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="events">
+        <img src="images/9-_1017852.jpg">
+        <div class="overlay"><div class="overlay-text">Vara Juice Opening</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="events">
+        <img src="images/10-_1017841.jpg">
+        <div class="overlay"><div class="overlay-text">Vara Juice Opening</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="events">
+        <img src="images/13-_1017813.jpg">
+        <div class="overlay"><div class="overlay-text">Vara Juice Opening</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="events">
+        <img src="images/14-_1017803.jpg">
+        <div class="overlay"><div class="overlay-text">Vara Juice Opening</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="events">
+        <img src="images/15-_1017779.jpg">
+        <div class="overlay"><div class="overlay-text">Vara Juice Opening</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="events">
+        <img src="images/_1017872.jpg">
+        <div class="overlay"><div class="overlay-text">Vara Juice Opening</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="events">
+        <img src="images/11-_1017822.jpg">
+        <div class="overlay"><div class="overlay-text">Vara Juice Opening</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="events">
+        <img src="images/12-_1017821.jpg">
+        <div class="overlay"><div class="overlay-text">Vara Juice Opening</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="events">
+        <img src="images/5-_1017901.jpg">
+        <div class="overlay"><div class="overlay-text">Vara Juice Opening</div></div>
+      </div>
+
+
+
+
+
+
+
+
+
+      <div class="gallery-item" data-cat="automotive">
+                <img src="images/2-_1077110.jpg">
+        <div class="overlay"><div class="overlay-text">Cars & Coffee</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="automotive">
+                <img src="images/5-_1076366.jpg">
+        <div class="overlay"><div class="overlay-text">Cars & Coffee</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="automotive">
+                <img src="images/7-_1076362.jpg">
+        <div class="overlay"><div class="overlay-text">Cars & Coffee</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="automotive">
+                <img src="images/1-_1077113.jpg">
+        <div class="overlay"><div class="overlay-text">Cars & Coffee</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="automotive">
+                <img src="images/3-_1077109.jpg">
+        <div class="overlay"><div class="overlay-text">Cars & Coffee</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="automotive">
+                <img src="images/4-_1077092.jpg">
+        <div class="overlay"><div class="overlay-text">Cars & Coffee</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="automotive">
+                <img src="images/6-_1076363.jpg">
+        <div class="overlay"><div class="overlay-text">Cars & Coffee</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="automotive">
+                <img src="images/8-_1076352.jpg">
+        <div class="overlay"><div class="overlay-text">Cars & Coffee</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="automotive">
+                <img src="images/9-_1076351.jpg">
+        <div class="overlay"><div class="overlay-text">Cars & Coffee</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="automotive">
+                <img src="images/10-_1076345.jpg">
+        <div class="overlay"><div class="overlay-text">Cars & Coffee</div></div>
+      </div>
+
+
+      <div class="gallery-item" data-cat="automotive">
+                <img src="images/11-_1076344.jpg">
+        <div class="overlay"><div class="overlay-text">Cars & Coffee</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="automotive">
+                <img src="images/12-_1076343.jpg">
+        <div class="overlay"><div class="overlay-text">Cars & Coffee</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="automotive">
+                <img src="images/13-IMG_0006.jpg">
+        <div class="overlay"><div class="overlay-text">Cars & Coffee</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="automotive">
+                <img src="images/14-IMG_0003.jpg">
+        <div class="overlay"><div class="overlay-text">Cars & Coffee</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="automotive">
+                <img src="images/15-IMG_9979.jpg">
+        <div class="overlay"><div class="overlay-text">Cars & Coffee</div></div>
+      </div>
+
+
+
+      <div class="gallery-item" data-cat="automotive">
+                <img src="images/16-IMG_9827.jpg">
+        <div class="overlay"><div class="overlay-text">Cars & Coffee</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="automotive">
+                <img src="images/17-IMG_9816.jpg">
+        <div class="overlay"><div class="overlay-text">Cars & Coffee</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="automotive">
+                <img src="images/18-IMG_9815.jpg">
+        <div class="overlay"><div class="overlay-text">Cars & Coffee</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="automotive">
+                <img src="images/19-IMG_9814.jpg">
+        <div class="overlay"><div class="overlay-text">Cars & Coffee</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="automotive">
+                <img src="images/20-IMG_9810.jpg">
+        <div class="overlay"><div class="overlay-text">Cars & Coffee</div></div>
+      </div>
+
+
+
+      <div class="gallery-item" data-cat="automotive">
+                <img src="images/21-IMG_9807.jpg">
+        <div class="overlay"><div class="overlay-text">Cars & Coffee</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="automotive">
+                <img src="images/22-IMG_9902.jpg">
+        <div class="overlay"><div class="overlay-text">Cars & Coffee</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="automotive">
+                <img src="images/23-IMG_9897.jpg">
+        <div class="overlay"><div class="overlay-text">Cars & Coffee</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="automotive">
+                <img src="images/25-IMG_5580.jpg">
+        <div class="overlay"><div class="overlay-text">Cars & Coffee</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="automotive">
+                <img src="images/24-IMG_5629.jpg">
+        <div class="overlay"><div class="overlay-text">Cars & Coffee</div></div>
+      </div>
+
+
+      <div class="gallery-item" data-cat="automotive">
+                <img src="images/26-IMG_5573.jpg">
+        <div class="overlay"><div class="overlay-text">Cars & Coffee</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="automotive">
+                <img src="images/27-_1053049.jpg">
+        <div class="overlay"><div class="overlay-text">Cars & Coffee</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="automotive">
+                <img src="images/29-_1053042.jpg">
+        <div class="overlay"><div class="overlay-text">Cars & Coffee</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="automotive">
+                <img src="images/30-_1053041.jpg">
+        <div class="overlay"><div class="overlay-text">Cars & Coffee</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="automotive">
+                <img src="images/32-_1053038.jpg">
+        <div class="overlay"><div class="overlay-text">Cars & Coffee</div></div>
+      </div>
+
+
+      <div class="gallery-item" data-cat="automotive">
+                <img src="images/28-_1053047.jpg">
+        <div class="overlay"><div class="overlay-text">Cars & Coffee</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="automotive">
+                <img src="images/31-_1053040.jpg">
+        <div class="overlay"><div class="overlay-text">Cars & Coffee</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="automotive">
+                <img src="images/33-_1053036.jpg">
+        <div class="overlay"><div class="overlay-text">Cars & Coffee</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="automotive">
+                <img src="images/40-01039302.jpg">
+        <div class="overlay"><div class="overlay-text">Cars & Coffee</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="automotive">
+                <img src="images/41-01039288.jpg">
+        <div class="overlay"><div class="overlay-text">Cars & Coffee</div></div>
+      </div>
+
+
+      <div class="gallery-item" data-cat="automotive">
+                <img src="images/42-01039282.jpg">
+        <div class="overlay"><div class="overlay-text">Cars & Coffee</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="automotive">
+                <img src="images/35-_1053012.jpg">
+        <div class="overlay"><div class="overlay-text">Cars & Coffee</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="automotive">
+                <img src="images/34-_1053017.jpg">
+        <div class="overlay"><div class="overlay-text">Cars & Coffee</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="automotive">
+                <img src="images/39-01039307.jpg">
+        <div class="overlay"><div class="overlay-text">Cars & Coffee</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="automotive">
+                <img src="images/36-_1052991.jpg">
+        <div class="overlay"><div class="overlay-text">Cars & Coffee</div></div>
+      </div>
+
+
+
+      <div class="gallery-item" data-cat="automotive">
+                <img src="images/38-_1052961.jpg">
+        <div class="overlay"><div class="overlay-text">Cars & Coffee</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="automotive">
+                <img src="images/37-_1052967.jpg">
+        <div class="overlay"><div class="overlay-text">Cars & Coffee</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="automotive">
+                <img src="images/43-P1024928.jpg">
+        <div class="overlay"><div class="overlay-text">Cars & Coffee</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="automotive">
+                <img src="images/44-P1024927.jpg">
+        <div class="overlay"><div class="overlay-text">Cars & Coffee</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="automotive">
+                <img src="images/45-P1024926.jpg">
+        <div class="overlay"><div class="overlay-text">Cars & Coffee</div></div>
+      </div>
+
+
+
+      <div class="gallery-item" data-cat="automotive">
+                <img src="images/46-P1024922.jpg">
+        <div class="overlay"><div class="overlay-text">Cars & Coffee</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="automotive">
+                <img src="images/47-P1024921.jpg">
+        <div class="overlay"><div class="overlay-text">Cars & Coffee</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="automotive">
+                <img src="images/48-P1024920.jpg">
+        <div class="overlay"><div class="overlay-text">Cars & Coffee</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="automotive">
+                <img src="images/49-P1024897.jpg">
+        <div class="overlay"><div class="overlay-text">Cars & Coffee</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="automotive">
+                <img src="images/50-P1024892.jpg">
+        <div class="overlay"><div class="overlay-text">Cars & Coffee</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="automotive">
+                <img src="images/51-P1024890.jpg">
+        <div class="overlay"><div class="overlay-text">Cars & Coffee</div></div>
+      </div>
+
+
+
+
+
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-image fade-in">
+      <!-- Replace with your photo: <img src="your-photo.jpg" class="about-img-main" alt="Photographer"> -->
+      <div class="about-img-placeholder"><img src="images/_1053197.jpg"></div>
+      <div class="about-accent"></div>
+    </div>
+    <div class="fade-in">
+      <p class="section-label">Behind the Lens</p>
+      <h2 class="section-title">About Me<br/><em style="font-style:italic;color:var(--terracotta)">Collins Nji</em></h2>
+      <div class="about-stat-bar">
+        <div class="stat"><span class="stat-num">4+</span><span class="stat-label">Years Exp.</span></div>
+        <div class="stat"><span class="stat-num">50+</span><span class="stat-label">Sessions</span></div>
+        <div class="stat"><span class="stat-num">3</span><span class="stat-label">Specialties</span></div>
+      </div>
+      <p class="about-body">I'm a photographer based in the Raleigh–Durham–Chapel Hill area with a passion for storytelling through light, composition, and moments. Whether it's the raw power of a machine, the energy of a live event, or the quiet depth of a portrait — every image I create is crafted with intention.</p>
+      <p class="about-body">With 4+ years of experience and 50+ sessions under my belt, I blend technical precision with a genuine artistic eye to deliver photographs that are both emotionally resonant and timeless.</p>
+      <a href="#contact" class="btn">Work With Me</a>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing">
+    <p class="section-label">Investment</p>
+    <h2 class="section-title">Pricing Packages</h2>
+    <p class="pricing-sub">Transparent, honest pricing across all three specialties. Every package includes professional editing and a private online gallery.</p>
+
+    <!-- Category Tabs -->
+    <div class="pricing-tabs">
+      <button class="ptab active" onclick="switchPricingTab('portrait', this)">Portrait</button>
+      <button class="ptab" onclick="switchPricingTab('events', this)">Events</button>
+      <button class="ptab" onclick="switchPricingTab('automotive', this)">Automotive</button>
+    </div>
+
+    <!-- PORTRAIT -->
+    <div class="pricing-panel active" id="panel-portrait">
+      <div class="pricing-grid">
+        <div class="price-card fade-in">
+          <p class="price-category">Portrait</p>
+          <p class="price-name">Starter Package</p>
+          <p class="price-amount">$125<span>/session</span></p>
+          <p class="price-desc">Perfect for social media or quick headshots.</p>
+          <ul class="price-features">
+            <li>30-minute session</li>
+            <li>1 location (your choice)</li>
+            <li>2 outfit changes</li>
+            <li>25 professionally edited images</li>
+            <li>Online gallery for download</li>
+            <li>Personal use license</li>
+          </ul>
+          <p class="price-bestfor">Best For: LinkedIn, senior photos, dating profiles, personal branding</p>
+          <a href="#contact" class="btn-dark">Book Now</a>
+        </div>
+
+        <div class="price-card featured fade-in">
+          <div class="featured-badge">Most Popular</div>
+          <p class="price-category">Portrait</p>
+          <p class="price-name">Signature Package</p>
+          <p class="price-amount">$225<span>/session</span></p>
+          <p class="price-desc">Most popular — best value for a full portrait experience.</p>
+          <ul class="price-features">
+            <li>1-hour session</li>
+            <li>1–2 locations</li>
+            <li>3 outfit changes</li>
+            <li>50 professionally edited images</li>
+            <li>Online gallery with sharing</li>
+            <li>Personal use license</li>
+            <li>1 × 8x10 print included</li>
+          </ul>
+          <p class="price-bestfor">Best For: Family portraits, graduation, engagement, lifestyle</p>
+          <p class="price-bonus">🎉 Book with a friend — each saves $20!</p>
+          <a href="#contact" class="btn-dark">Book Now</a>
+        </div>
+
+        <div class="price-card fade-in">
+          <p class="price-category">Portrait</p>
+          <p class="price-name">Premium Package</p>
+          <p class="price-amount">$375<span>/session</span></p>
+          <p class="price-desc">The full experience for those truly special moments.</p>
+          <ul class="price-features">
+            <li>2-hour session</li>
+            <li>Up to 3 locations</li>
+            <li>Unlimited outfit changes</li>
+            <li>100 professionally edited images</li>
+            <li>Premium gallery with slideshow</li>
+            <li>Personal use license</li>
+            <li>2 × 11x14 prints + 20-page photo book</li>
+            <li>Priority editing (48-hr turnaround)</li>
+          </ul>
+          <p class="price-bestfor">Best For: Maternity, milestones, extended family, branding</p>
+          <a href="#contact" class="btn-dark">Book Now</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- EVENTS -->
+    <div class="pricing-panel" id="panel-events">
+      <div class="pricing-grid">
+        <div class="price-card fade-in">
+          <p class="price-category">Events</p>
+          <p class="price-name">Basic Coverage</p>
+          <p class="price-amount">$175<span>/hour</span></p>
+          <p class="price-desc">Minimum 1 hour. Great for smaller gatherings.</p>
+          <ul class="price-features">
+            <li>Up to 1 hour of coverage</li>
+            <li>Candid and posed shots</li>
+            <li>80–100 edited images</li>
+            <li>Online gallery within 7 days</li>
+            <li>Personal use license</li>
+          </ul>
+          <p class="price-bestfor">Best For: Birthday parties, small gatherings, club events, Greek life</p>
+          <a href="#contact" class="btn-dark">Book Now</a>
+        </div>
+
+        <div class="price-card featured fade-in">
+          <div class="featured-badge">Most Popular</div>
+          <p class="price-category">Events</p>
+          <p class="price-name">Standard Coverage</p>
+          <p class="price-amount">$150<span>/hour</span></p>
+          <p class="price-desc">Minimum 2 hours — best value for mid-size events.</p>
+          <ul class="price-features">
+            <li>2–5 hours of coverage</li>
+            <li>Candid and posed shots throughout</li>
+            <li>100–150 edited images</li>
+            <li>Online gallery with sharing</li>
+            <li>Personal use license</li>
+          </ul>
+          <p class="price-bestfor">Best For: Corporate events, fundraisers, award ceremonies, galas</p>
+          <p class="price-bonus">💡 Every hour beyond 3 hrs is only $125/hr!</p>
+          <a href="#contact" class="btn-dark">Book Now</a>
+        </div>
+
+        <div class="price-card fade-in">
+          <p class="price-category">Events</p>
+          <p class="price-name">Premium Coverage</p>
+          <p class="price-amount">$750<span>/full event</span></p>
+          <p class="price-desc">Complete peace of mind for large-scale events.</p>
+          <ul class="price-features">
+            <li>Full event coverage (up to 8 hrs)</li>
+            <li>Pre-event consultation + shot list</li>
+            <li>Candid, posed & detail shots</li>
+            <li>250+ edited images</li>
+            <li>Premium gallery with slideshow</li>
+            <li>Commercial use license</li>
+            <li>Final gallery within 3 days</li>
+          </ul>
+          <p class="price-bestfor">Best For: Conferences, large weddings, festivals, brand activations</p>
+          <a href="#contact" class="btn-dark">Book Now</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- AUTOMOTIVE -->
+    <div class="pricing-panel" id="panel-automotive">
+      <div class="pricing-grid">
+        <div class="price-card fade-in">
+          <p class="price-category">Automotive</p>
+          <p class="price-name">Showcase Basic</p>
+          <p class="price-amount">$100<span>/session</span></p>
+          <p class="price-desc">Great for selling your car or quick Instagram content.</p>
+          <ul class="price-features">
+            <li>45-minute session, 1 location</li>
+            <li>Exterior shots — multiple angles</li>
+            <li>2–3 interior detail shots</li>
+            <li>20 professionally edited images</li>
+            <li>Online gallery</li>
+            <li>Personal use license</li>
+          </ul>
+          <p class="price-bestfor">Best For: Private car sales (FB Marketplace, Craigslist), collection docs</p>
+          <a href="#contact" class="btn-dark">Book Now</a>
+        </div>
+
+        <div class="price-card featured fade-in">
+          <div class="featured-badge">Most Popular</div>
+          <p class="price-category">Automotive</p>
+          <p class="price-name">Enthusiast Package</p>
+          <p class="price-amount">$200<span>/session</span></p>
+          <p class="price-desc">Perfect for car enthusiasts and social media presence.</p>
+          <ul class="price-features">
+            <li>1.5-hour session</li>
+            <li>1–2 locations (urban/scenic)</li>
+            <li>Full exterior + motion shots</li>
+            <li>Interior and engine bay details</li>
+            <li>40–50 professionally edited images</li>
+            <li>Personal use license</li>
+            <li>3 mobile-optimized IG Story shots</li>
+          </ul>
+          <p class="price-bestfor">Best For: Car meets, social media, Cars & Coffee, personal portfolio</p>
+          <a href="#contact" class="btn-dark">Book Now</a>
+        </div>
+
+        <div class="price-card fade-in">
+          <p class="price-category">Automotive</p>
+          <p class="price-name">Professional Package</p>
+          <p class="price-amount">$375<span>/session</span></p>
+          <p class="price-desc">Dealership-quality work for serious automotive content.</p>
+          <ul class="price-features">
+            <li>3-hour session</li>
+            <li>2–3 premium locations</li>
+            <li>Full exterior + rolling/motion shots</li>
+            <li>Interior, engine bay & custom features</li>
+            <li>60+ professionally edited images</li>
+            <li>Commercial use license</li>
+            <li>Premium online gallery</li>
+            <li>48-hour fast turnaround</li>
+            <li>Short V-LOG video reel (15–30 sec) for socials</li>
+          </ul>
+          <p class="price-bestfor">Best For: Dealerships, high-end resale, influencer content, car show portfolio</p>
+          <p class="price-bonus">➕ Rolling/motion shots add-on: +$60</p>
+          <a href="#contact" class="btn-dark">Book Now</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ADD-ONS -->
+    <div class="addons-box fade-in">
+      <p class="addons-title">Package Add-Ons</p>
+      <div class="addons-grid">
+        <div class="addon-item"><span>Rush Editing (24-hr delivery)</span><span>+$40</span></div>
+        <div class="addon-item"><span>Additional Location</span><span>+$30 / location</span></div>
+        <div class="addon-item"><span>Extra Hour — Portrait</span><span>+$60</span></div>
+        <div class="addon-item"><span>Extra Hour — Event</span><span>+$125</span></div>
+        <div class="addon-item"><span>Extra Hour — Automotive</span><span>+$80</span></div>
+        <div class="addon-item"><span>5×7 Prints (set of 10)</span><span>+$40</span></div>
+        <div class="addon-item"><span>8×10 Prints (set of 5)</span><span>+$50</span></div>
+        <div class="addon-item"><span>Canvas Print 16×20</span><span>+$80</span></div>
+        <div class="addon-item"><span>Social Media Content Pack (20 vertical images)</span><span>+$60</span></div>
+        <div class="addon-item"><span>Travel Fee (20+ miles from Charlotte)</span><span>$10/mile</span></div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="fade-in">
+      <p class="section-label">Get in Touch</p>
+      <h2 class="section-title">Contact Me<br/><em style="font-style:italic;color:var(--terracotta)"> </em></h2>
+      <p class="about-body">Ready to book a session or have questions? Fill out the form and I'll get back to you within 24 hours.</p>
+      <div class="contact-detail">
+        <div class="contact-detail-icon">✉</div>
+        <a href="mailto:collinsmbeuah@gmail.com">collinsmbeuah@gmail.com</a>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-detail-icon">☎</div>
+        +1 (919) 902-6051
+      </div>
+      <div class="contact-detail">
+        <div class="contact-detail-icon">📍</div>
+        Charlotte · Raleigh · Durham · Chapel Hill, NC
+      </div>
+    </div>
+    <div class="fade-in">
+      <form class="contact-form" onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" placeholder="Jane" required />
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" placeholder="Doe" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" placeholder="jane@example.com" required />
+        </div>
+        <div class="form-group">
+          <label>Service Interested In</label>
+          <select>
+            <option value="">Select a service...</option>
+            <option>Portrait Session</option>
+            <option>Automotive Photography</option>
+            <option>Event Coverage</option>
+            <option>Custom Package</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea placeholder="Tell me about your project, preferred date, location..."></textarea>
+        </div>
+        <button type="submit" class="btn" style="align-self:flex-start">Send Message</button>
+      </form>
+      <div id="form-success" style="display:none;margin-top:1rem;font-family:'Cormorant Garamond',serif;color:var(--terracotta);font-size:1.1rem;">✓ Thank you! I'll be in touch soon.</div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="logo">Aperture <span>Artistry</span></div>
+    <p class="footer-copy">© 2026 Aperture Artistry · Charlotte · Raleigh · Durham · Chapel Hill, NC</p>
+    <div class="social-links">
+      <a href="https://www.instagram.com/collins_visuals?igsh=M2kyamNmYzJ6NGFz&utm_source=qr" title="Instagram">ig</a>
+      <a href="#" title="Facebook">fb</a>
+      <a href="https://www.linkedin.com/in/collins-nji/" title="LinkedIn">in</a>
+    </div>
+  </footer>
+
+  <script>
+    function switchPricingTab(cat, btn) {
+      document.querySelectorAll('.ptab').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.pricing-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('panel-' + cat).classList.add('active');
+    }
+
+    function filterGallery(cat, btn) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.gallery-item').forEach(item => {
+        item.style.display = (cat === 'all' || item.dataset.cat === cat) ? '' : 'none';
+      });
+    }
+
+    function handleSubmit(e) {
+      e.preventDefault();
+      document.getElementById('form-success').style.display = 'block';
+      e.target.reset();
+    }
+
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+  </script>
+</body>
+</html>
