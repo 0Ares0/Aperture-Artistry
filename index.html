@@ -701,26 +701,51 @@
     }
 
     @media (max-width: 900px) {
+
       .addons-grid { grid-template-columns: 1fr; }
       .pricing-tabs { overflow-x: auto; }
-    }
-    @media (max-width: 900px) {
-      nav { padding: 1rem 1rem; }
-      nav ul { gap: 0.8rem; }
-      flex-wrap{ flex-wrap: wrap;} 
-      justify-content {justify-content: center};
-      section { padding: 4rem 2rem; }
+
+      body,
+      .container {
+        max-width: 100%;
+        margin: 0;
+      }
+
+      nav {
+        padding: 1rem;
+      }
+
+      nav ul {
+        width: 100%;
+        gap: 0.8rem;
+        padding: 0;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      section { padding: 4rem 1.5rem; }
+
       #hero { grid-template-columns: 1fr; min-height: auto; }
       .hero-left { padding: 8rem 2rem 3rem; }
-      .hero-right { height: auto;}
+      .hero-right { height: auto; }
+
       #about, #contact { grid-template-columns: 1fr; gap: 3rem; }
+
       .pricing-grid { grid-template-columns: 1fr; }
       .gallery-grid { grid-template-columns: 1fr 1fr; }
       .gallery-item.wide { grid-column: span 1; }
-      footer { flex-direction: column; gap: 1.5rem; text-align: center; padding: 2.5rem; }
-      .divider { padding: 0 2rem; }
+
+      footer {
+        flex-direction: column;
+        gap: 1.5rem;
+        text-align: center;
+        padding: 2.5rem;
+      }
+
+      .divider { padding: 0 1.5rem; }
       .about-accent { display: none; }
       .form-row { grid-template-columns: 1fr; }
+
     }
   </style>
 </head>
